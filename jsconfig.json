@@ -1,5 +1,8 @@
 {
 	"compilerOptions": {
 		"baseUrl": ".",
+		"paths": {
+			"neon": ["./libs/neon/index.js"]
+		}
 	}
 }

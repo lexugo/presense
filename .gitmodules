@@ -1,0 +1,3 @@
+[submodule "libs/neon"]
+	path = libs/neon
+	url = https://github.com/lexugo/neon
