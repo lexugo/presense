@@ -1,0 +1,159 @@
+@import 'variables'
+
+// Clean
+body, html, *
+	margin: 0
+	padding: 0
+
+*
+	transition: opacity .2s ease-in-out
+
+#__next
+	overflow-y: none
+
+button
+	font: inherit
+	color: inherit
+	border: none
+	outline: none
+	box-sizing: content-box
+	padding: 0
+	background: inherit
+
+input
+	background: none
+	// border: none
+	outline: none
+
+	&:focus
+		outline: none
+
+
+// Layout
+#__next // app
+	min-height: 100%
+	min-width: 100%
+
+	font-family: 'Karla', sans-serif
+	font-size: 16px
+	font-weight: 400
+	color: $light
+	background-color: $dark
+
+// General
+.keyword,
+.keypress .key
+	font-weight: 700
+
+// Forms
+.question
+	display: grid
+	grid-template-columns: 2rem auto 2rem
+	grid-template-rows: auto 4em auto
+	gap: 1rem
+	// padding-right: 3em // 2em right column size + 1em gap
+
+	width: calc(100%)
+
+	&:before,
+	label
+		font-size: 1.4em
+		grid-column: 2
+
+	&:before
+		content: '•'
+		grid-column: 1
+		justify-self: right
+		color: #fd7861
+
+	input
+		width: 100%
+		grid-column: 2
+
+		font-family: 'Karla', sans-serif
+		font-weight: 300
+		letter-spacing: -1px
+		color: #fd7861
+		font-size: 1.4em
+		+tablet
+			font-size: 2em
+
+		transition: border .1s ease-in-out
+		border-width: 0 0 1px 0
+		border-image: $orange 1 stretch
+		&:focus,
+		&:hover
+			border-width: 0 0 3px 0
+
+		&::placeholder
+			transition: color .2s ease-in-out
+			color: $faded
+
+		&:focus::placeholder
+			color: $faded-text
+
+
+	.submit
+		grid-column: 2
+		display: flex
+		align-items: baseline
+
+		button
+			cursor: pointer
+			padding: .6em 1.2em
+			border-radius: 8px
+			color: white
+			font-family: roboto, 'sans-serif'
+			font-weight: 800
+			background: $orange
+
+			transition: opacity .2s ease-in-out
+			&:disabled
+				opacity: .4
+
+		.keypress
+			color: $faded-text
+			margin: .6em
+
+			.key
+				color: $light
+
+			transition: opacity .2s ease-in-out
+			&.disabled
+				opacity: .4
+
+.required.question
+	label:after
+		position: relative
+		left: 4px
+		content: '*'
+		color: #fd7861
+
+// Presense
+.brand
+	font-size: 1.4em
+	font-weight: 800
+
+	opacity: 1
+
+	.sense
+		background: $orange
+		-webkit-background-clip: text
+		-webkit-text-fill-color: transparent
+
+// Notice
+form.notice
+	min-height: 100vh
+
+	display: grid
+	grid-template-rows: 1fr auto 1fr
+	gap: 1rem
+
+	header
+		align-self: end
+		font-size: 1.4em
+		margin: 0 3rem
+
+
+	width: 80vw
+	margin: auto

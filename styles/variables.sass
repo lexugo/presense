@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600;700;900&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap')
+
+// Colors
+$light: #fff
+$dark: #313855
+$faded: #485069
+$faded-text: #8d96a7
+$disabled: #414866
+
+// Gradients
+@function linearGradiant($left, $right)
+	@return linear-gradient(90deg, $left 0%, $right 100%)
+
+$orange: linearGradiant(#fd7861, #e4b6ac)
+$yellow: linearGradiant(#fea85e, #edcaa8)
+$green: linearGradiant(#5bd676, #b2debb)
+
+
+$pink: linearGradiant(#fe6a93, #edbdcb)
+$blue: linearGradiant(#78b6ef, #c8ddff)
+$purple: linearGradiant(#a08cfd, #c3b6fe)
+
+$red: linearGradiant(#fe8384, #fed6d6)
+
+$gradiants: $yellow, $green, $orange, $pink, $blue, $purple
+
+@function gradiant($seed: random(6))
+	$nth: ($seed % 6) + 1
+	@return nth($gradiants, $nth)
+
+// Responsiveness
+$mobile: 339px !default
+$tablet: 647px !default
+$desktop: 992px !default
+$widescreen: 1200px !default
+$fullscreen: 1344px !default
+
+=mobile
+	@media screen and (min-width: $mobile)
+		@content
+
+=tablet
+	@media screen and (min-width: $tablet)
+		@content
+
+=desktop
+	@media screen and (min-width: $desktop)
+		@content
+
+=widescreen
+	@media screen and (min-width: $widescreen)
+		@content
+
+=fullscreen
+	@media screen and (min-width: $fullscreen)
+		@content
