@@ -3,8 +3,10 @@ import { useClasses } from 'neon'
 
 export default function Question({ name, answer, onChange, onSubmit, required, placeholder, children: label }) {
 	function submit(event) {
-		event.preventDefault()
-		onSubmit(answer ?? placeholder)
+		if (onSubmit) {
+			event.preventDefault()
+			onSubmit(answer || placeholder)
+		}
 	}
 
 	const classNames = useClasses(required && 'required', 'question')

@@ -1,3 +1,5 @@
+import { record } from 'services/notes'
+
 import { useState } from 'react'
 
 import Brand from 'components/brand'
@@ -6,8 +8,8 @@ import Question from 'components/question'
 export default function Notice() {
 	const [note, setNote] = useState()
 
-	function submit(note) {
-		console.log(note) // TODO: save note to database
+	async function submit(note) {
+		await record(note) // TODO: handle error
 		clear()
 	}
 
