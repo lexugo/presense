@@ -2,7 +2,8 @@
 	"compilerOptions": {
 		"baseUrl": ".",
 		"paths": {
-			"neon": ["./libs/neon/index.js"]
+			"neon": ["./libs/neon/index.js"],
+			"braise": ["./libs/braise/index.js"]
 		}
 	}
 }

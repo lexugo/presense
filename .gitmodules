@@ -1,3 +1,6 @@
 [submodule "libs/neon"]
 	path = libs/neon
 	url = https://github.com/lexugo/neon
+[submodule "libs/braise"]
+	path = libs/braise
+	url = https://github.com/lexugo/braise.git
