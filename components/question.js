@@ -8,11 +8,15 @@ function Question({ name, answer, onChange, onSkip, onSubmit, required, classNam
 	const skippable = !required
 	const submittable = required || answer
 	function keyDown(event) {
-		if (event.key === 'Tab' && onSkip)
-			skippable ? onChange(undefined) & onSkip(event) : event.preventDefault()
+		if (event.key === 'Tab' && onSkip) skippable ? skip() : event.preventDefault()
 
 		if (event.key === 'Enter' && onSubmit)
 			submittable ? onSubmit(event) : event.preventDefault()
+	}
+
+	function skip(event) {
+		onChange(undefined) // Clear answer when skipping
+		onSkip(event)
 	}
 
 	const classNames = useClasses(className, required && 'required', 'question')
@@ -25,12 +29,13 @@ function Question({ name, answer, onChange, onSkip, onSubmit, required, classNam
 				value={answer ?? ''}
 				onKeyDown={keyDown}
 				onChange={({ target: { value }}) => onChange(value)}
+				onSubmit={onSubmit}
 				autoComplete='off'
 				{...props}
 			/>
 			<div className='actions'>
-				<Submit disabled={!submittable} />
-				{ skippable && <Skip onSkip={onSkip} /> }
+				<Submit disabled={!submittable} onSubmit={onSubmit} />
+				{ skippable && <Skip onSkip={skip} /> }
 			</div>
 		</div>
 	)

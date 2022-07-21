@@ -1,7 +1,10 @@
 import { useState } from 'react'
+import { useDevice } from 'neon'
 
 export default function useAudition() {
 	const [questions, setQuestions] = useState({})
+
+	const mobile = useDevice('mobile')
 
 	function about(question) {
 		const index = Object.keys(questions).indexOf(question)
@@ -39,8 +42,14 @@ export default function useAudition() {
 			? questions[question]
 			: question
 
-		element?.focus({ preventScroll: true })
-		element?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+		if (mobile) {
+			element?.focus({ preventScroll: true })
+			element?.parentElement?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+		}
+		else {
+			element?.focus({ preventScroll: true })
+			element?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+		}
 	}
 
 	return {
