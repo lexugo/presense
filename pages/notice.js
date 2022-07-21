@@ -6,7 +6,7 @@ import useAudition from 'hooks/useAudition'
 import Question from 'components/question'
 
 export default function Notice() {
-	const { questions, about } = useAudition()
+	const { focus, questions, about } = useAudition()
 	const [note, setNote] = useState()
 	const [context, setContext] = useState()
 	const [feelings, setFeelings] = useState()
@@ -27,10 +27,10 @@ export default function Notice() {
 		setContext(undefined)
 		setFeelings(undefined)
 
-		questions.note.focus()
+		focus('note')
 	}
 
-	useEffect(() => questions.note?.focus(), [questions]) // Autofocus the first question
+	useEffect(() => focus('note'), [questions]) // Autofocus the first question
 	return (
 		<form className='questions' onSubmit={submit}>
 			<Question
@@ -54,6 +54,7 @@ export default function Notice() {
 				{...about('feelings')}
 				answer={feelings}
 				onChange={setFeelings}
+				placeholder="Astray, until I regained presense"
 			>
 				How were you <span className='keyword'>feeling</span>?
 			</Question>
