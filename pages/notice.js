@@ -1,46 +1,62 @@
 import { record } from 'services/notes'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import useAudition from 'hooks/useAudition'
 
-import Brand from 'components/brand'
 import Question from 'components/question'
 
 export default function Notice() {
+	const { questions, about } = useAudition()
 	const [note, setNote] = useState()
 	const [context, setContext] = useState()
+	const [feelings, setFeelings] = useState()
 
-	async function submit(note) {
-		await record(note) // TODO: handle error
-		clear()
+	async function submit(event) {
+		event.preventDefault()
+
+		await record({ // TODO: handle error
+			content: note ?? 'I was lost in a daydream',
+			...(context) && { context },
+			...(feelings) && { feelings }
+		})
+		clear() // TODO: show confirmation
 	}
 
-	function clear() { setNote(undefined) }
+	function clear() {
+		setNote(undefined)
+		setContext(undefined)
+		setFeelings(undefined)
 
+		questions.note.focus()
+	}
+
+	useEffect(() => questions.note?.focus(), [questions]) // Autofocus the first question
 	return (
-		<div className='notice'>
-			<Brand />
-			<form className='questions'>
-				<Question
-					name='note'
-					required
-					answer={note}
-					onChange={setNote}
-					onSubmit={submit}
-					placeholder='I was lost in a daydream'
-				>
-					Hello, what did you <span className='keyword'>notice</span> today?
-				</Question>
-				<Question
-					name='context'
-					answer={context}
-					onChange={setContext}
-					onSubmit={submit}
-					placeholder="Yet, I don't remember where I was beforehand"
-				>
-					What was happening in your mind, or around you, at the time?
-				</Question>
-			</form>
-
-		</div>
+		<form className='questions' onSubmit={submit}>
+			<Question
+				{...about('note')}
+				answer={note}
+				onChange={setNote}
+				placeholder='I was lost in a daydream'
+				required
+			>
+				Hello, what did you <span className='keyword'>notice</span> today?
+			</Question>
+			<Question
+				{...about('context')}
+				answer={context}
+				onChange={setContext}
+				placeholder="Yet, I don't remember where I was beforehand"
+			>
+				What was happening in, or around, you at the time?
+			</Question>
+			<Question
+				{...about('feelings')}
+				answer={feelings}
+				onChange={setFeelings}
+			>
+				How were you <span className='keyword'>feeling</span>?
+			</Question>
+		</form>
 	)
 }

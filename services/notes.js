@@ -1,4 +1,4 @@
-import { addDoc, collection, getFirestore, serverTimestamp } from 'firebase/firestore'
+import { addDoc, collection, getFirestore, Timestamp } from 'firebase/firestore'
 
 export async function record(note) {
 	const firestore = getFirestore()
@@ -7,8 +7,8 @@ export async function record(note) {
 	return await addDoc(notes, {
 		...serialized(note),
 		recorded: {
-			on: serverTimestamp(),
-			by: 'hugo' // TODO: authentication
+			on: Timestamp.now()
+			// TODO: authentication
 		}
 	})
 }
