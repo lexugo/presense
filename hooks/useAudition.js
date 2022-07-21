@@ -13,7 +13,7 @@ export default function useAudition() {
 				return submit(event) // Submit form when skipping the last question
 
 			event.preventDefault()
-			next.focus()
+			focus(next)
 		}
 
 		function submit(event) {
@@ -34,8 +34,18 @@ export default function useAudition() {
 		}
 	}
 
+	function focus(question) {
+		const element = typeof question === 'string' || question instanceof String
+			? questions[question]
+			: question
+
+		element?.focus({ preventScroll: true })
+		element?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+	}
+
 	return {
 		questions,
-		about
+		about,
+		focus
 	}
 }
