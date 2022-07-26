@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "secrets": "vercel env pull .env.local"
   },
   "dependencies": {
     "firebase": "^9.9.0",

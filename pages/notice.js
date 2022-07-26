@@ -2,11 +2,19 @@ import { record } from 'services/notes'
 
 import { useEffect, useState } from 'react'
 import useAudition from 'hooks/useAudition'
+import { useSuspended } from 'hooks/useSuspense'
 
 import Question from 'components/question'
+import { suspensful } from 'components/suspense'
 
-export default function Notice() {
+function Notice({ suspended }) {
 	const { focus, questions, about } = useAudition()
+	const notice = useSuspended(async () => await record({
+		content: note,
+		...(context) && { context },
+		...(feelings) && { feelings }
+	 }))
+
 	const [note, setNote] = useState()
 	const [context, setContext] = useState()
 	const [feelings, setFeelings] = useState()
@@ -14,11 +22,7 @@ export default function Notice() {
 	async function submit(event) {
 		event.preventDefault()
 
-		await record({ // TODO: handle error
-			content: note ?? 'I was lost in a daydream',
-			...(context) && { context },
-			...(feelings) && { feelings }
-		})
+		await notice()
 		clear() // TODO: show confirmation
 	}
 
@@ -31,6 +35,7 @@ export default function Notice() {
 	}
 
 	useEffect(() => focus('note'), [questions]) // Autofocus the first question
+
 	return (
 		<form className='questions' onSubmit={submit}>
 			<Question
@@ -39,6 +44,7 @@ export default function Notice() {
 				onChange={setNote}
 				placeholder='I was lost in a daydream'
 				required
+				disabled={suspended}
 			>
 				Hello, what did you <span className='keyword'>notice</span> today?
 			</Question>
@@ -47,6 +53,7 @@ export default function Notice() {
 				answer={context}
 				onChange={setContext}
 				placeholder="Yet, I don't remember where I was beforehand"
+				disabled={suspended}
 			>
 				What was happening in, or around, you at the time?
 			</Question>
@@ -55,9 +62,12 @@ export default function Notice() {
 				answer={feelings}
 				onChange={setFeelings}
 				placeholder="Astray, until I regained presense"
+				disabled={suspended}
 			>
 				How were you <span className='keyword'>feeling</span>?
 			</Question>
 		</form>
 	)
 }
+
+export default suspensful(Notice)

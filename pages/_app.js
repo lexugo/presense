@@ -1,6 +1,7 @@
 import { useFirebase } from 'libs/braise'
 
 import Brand from 'components/brand'
+import Panic from 'components/panic'
 
 import 'styles/global.sass'
 
@@ -10,7 +11,9 @@ export default function Layout({ Component, pageProps: props }) {
     return (
         <>
             <Brand />
-            <Component {...props} />
+            <Panic fallback='failed'>
+                <Component {...props} />
+            </Panic>
         </>
     )
 }
