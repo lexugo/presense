@@ -2,7 +2,7 @@ import { record } from 'services/notes'
 
 import { useEffect, useState } from 'react'
 import useAudition from 'hooks/useAudition'
-import { useSuspended, useRouting } from 'neon'
+import { useSuspended, useRouting, Suspense } from 'neon'
 
 import Question from 'components/question'
 import { suspenseful } from 'neon'
@@ -15,7 +15,7 @@ function Notice(_, suspended) {
 	const [context, setContext] = useState()
 	const [feelings, setFeelings] = useState()
 
-	const submit = useSuspended(async (event) => {
+	async function submit(event) {
 		event.preventDefault()
 
 		const reference = await record({
@@ -24,11 +24,11 @@ function Notice(_, suspended) {
 			feelings
 		})
 		await redirect(`/note/${reference}`)
-	})
+	}
 
 	useEffect(() => focus('note'), [questions, suspended]) // Autofocus the first question
 	return (
-		<form className='questions' onSubmit={submit}>
+		<form className='questions' onSubmit={useSuspended(submit)}>
 			<Question
 				{...about('note')}
 				answer={content}
@@ -57,7 +57,6 @@ function Notice(_, suspended) {
 			>
 				How were you <span className='keyword'>feeling</span>?
 			</Question>
-			{ suspended ? 'ues' : 'noo'}
 		</form>
 	)
 }
