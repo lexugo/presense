@@ -17,17 +17,16 @@ $orange: linearGradiant(#fd7861, #e4b6ac)
 $yellow: linearGradiant(#fea85e, #edcaa8)
 $green: linearGradiant(#5bd676, #b2debb)
 
-
 $pink: linearGradiant(#fe6a93, #edbdcb)
 $blue: linearGradiant(#78b6ef, #c8ddff)
-$purple: linearGradiant(#a08cfd, #c3b6fe)
+$purple: linearGradiant(s#a08cfd, #c3b6fe)
 
 $red: linearGradiant(#fe8384, #fed6d6)
 
-$gradiants: $yellow, $green, $orange, $pink, $blue, $purple
+$gradiants: $yellow, $green, $pink, $blue, $purple
 
 @function gradiant($seed: random(6))
-	$nth: ($seed % 6) + 1
+	$nth: ($seed % 5) + 1
 	@return nth($gradiants, $nth)
 
 // Animations

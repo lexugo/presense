@@ -1,11 +1,27 @@
 import { recall } from 'services/notes'
 import { initializeApp, getApps } from 'firebase/app'
 
-export default function Note({ id, content }) {
+import Choice, { Between } from 'components/select'
+import Option from "components/option"
+
+export default function Note({ content }) {
 	return (
-		<div>
-			<h1>Thank you.</h1>
-			<p>{ content }</p>
+		<div className='thank you'>
+			<header>
+				<p className='note'>
+					<q>{ content }</q>
+					<span className='author'>Hugo</span>
+				</p>
+			</header>
+			<form className='questions'>
+				<Choice>
+					Thank you! Should we record another note?
+					<Between>
+						<Option href='/notice'>Yes, take another note.</Option>
+						<Option href='/notes'>No, read the previous notes.</Option>
+					</Between>
+				</Choice>
+			</form>
 		</div>
 	)
 }
@@ -27,7 +43,6 @@ export async function getStaticProps({ params: { id }}) {
 		return { notFound: true }
 	return {
 		props: {
-			id,
 			content: note.content
 		}
 	}

@@ -19,7 +19,7 @@ function Notice(_, suspended) {
 		event.preventDefault()
 
 		const reference = await record({
-			content: content ?? 'I was lost in a daydream',
+			content: content || 'I was lost in a daydream',
 			context,
 			feelings
 		})

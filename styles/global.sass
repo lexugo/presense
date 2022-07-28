@@ -122,25 +122,26 @@ input
 .question:not(:focus-within)
 	opacity: .6
 
+button, .option
+	cursor: pointer
+	padding: .6em 1.2em
+	border-radius: 8px
+	color: $light
+	font-family: roboto, 'sans-serif'
+	font-weight: 800
+	background: $orange
+	text-decoration: none
+	height: min-content
+
+	transition: opacity .2s ease-in-out
+	&:disabled
+		opacity: .4
 
 .submit,
 .skip
 	grid-column: 2
 	display: flex
 	align-items: baseline
-
-	button
-		cursor: pointer
-		padding: .6em 1.2em
-		border-radius: 8px
-		color: white
-		font-family: roboto, 'sans-serif'
-		font-weight: 800
-		background: $orange
-
-		transition: opacity .2s ease-in-out
-		&:disabled
-			opacity: .4
 
 	.keypress
 		color: $faded-text
@@ -164,6 +165,27 @@ input
 		content: '*'
 		color: #fd7861
 
+.multiple.choice.question
+	opacity: 1
+
+	.options
+		grid-row: 2
+		grid-column: 2
+
+		display: flex
+		flex-direction: column
+		gap: 1rem
+
+		+tablet
+			flex-direction: row
+
+		.option:nth-child(1n)
+			background: $yellow
+
+		.option:nth-child(2n)
+			background: $orange
+
+
 .questions
 	display: flex
 	flex-direction: column
@@ -184,3 +206,22 @@ input
 	font-weight: 600
 	display: inline-block
 	animation: ellipsis steps(1,end) 1.4s infinite
+
+// Thank you
+.thank.you
+	.note
+		margin-bottom: .6em
+		color: $faded-text
+
+		.author
+			opacity: .6
+			display: none
+			font-style: italic
+
+			+tablet
+				display: inline
+
+			&:before
+				content: ' - '
+				font-weight: 400
+				font-style: normal
