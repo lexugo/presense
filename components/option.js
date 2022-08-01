@@ -1,12 +1,19 @@
-import { memo } from 'react'
+import { forwardRef, memo } from 'react'
 import { Anchor } from 'neon'
+import Keypress from './keypress'
 
-function Option({ href, onChoose, children: label }) {
+function Option({ href, onChoose, press, children: label }, ref) {
 	// TODO: Create useKeyPress hook
 
-	return href
-		? <Anchor href={href} onClick={onChoose} className='option'>{ label }</Anchor>
-		: <button type='submit' onClick={onChoose} className='option'>{ label }</button>
+	const button = href
+		? <Anchor href={href} onClick={onChoose} ref={ref}>{ label }</Anchor>
+		: <button type='button' onClick={onChoose} ref={ref}>{ label }</button>
+	return (
+		<div className='option'>
+			{ button }
+			{ press && <Keypress>{ press }</Keypress> }
+		</div>
+	)
 }
 
-export default memo(Option)
+export default forwardRef(Option)

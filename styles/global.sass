@@ -67,7 +67,7 @@ input
 .question
 	display: grid
 	grid-template-columns: 2rem auto 2rem
-	grid-template-rows: auto 4em auto
+	grid-template-rows: min-content auto min-content
 	gap: 1rem
 
 	&:before,
@@ -81,6 +81,10 @@ input
 		grid-column: 1
 		justify-self: right
 		color: #fd7861
+
+	.info
+		font-size: .8em
+		color: $faded-text
 
 	.actions
 		grid-column: 2
@@ -122,7 +126,7 @@ input
 .question:not(:focus-within)
 	opacity: .6
 
-button, .option
+button, .option button, .option a
 	cursor: pointer
 	padding: .6em 1.2em
 	border-radius: 8px
@@ -138,7 +142,8 @@ button, .option
 		opacity: .4
 
 .submit,
-.skip
+.skip,
+.option
 	grid-column: 2
 	display: flex
 	align-items: baseline
@@ -166,6 +171,7 @@ button, .option
 		color: #fd7861
 
 .multiple.choice.question
+	grid-template-rows: min-content auto
 	opacity: 1
 
 	.options
@@ -179,11 +185,17 @@ button, .option
 		+tablet
 			flex-direction: row
 
-		.option:nth-child(1n)
+		.option:nth-child(1n) button,
+		.option:nth-child(1n) a
 			background: $yellow
 
-		.option:nth-child(2n)
+		.option:nth-child(2n) button,
+		.option:nth-child(2n) a
 			background: $orange
+
+		.option:nth-child(3n) button,
+		.option:nth-child(3n) a
+			background: $blue
 
 
 .questions

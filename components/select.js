@@ -1,5 +1,3 @@
-import { Anchor } from 'neon'
-
 export default function Choice({ name, value, onAnswer, children }) {
 	const label = children.slice(0, -1)
 	const choices = children[children.length - 1]
