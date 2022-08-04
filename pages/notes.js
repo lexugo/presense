@@ -1,12 +1,13 @@
-import { useCollection } from 'braise'
-import { limit, orderBy, where } from 'firebase/firestore'
+import useAuth from 'hooks/useAuth'
+import { useCollection, useWhere as where, useOrderBy as orderBy, useLimit as limit } from 'braise'
 
 export default function Notes() {
-	const notes = useCollection('notes', [
-		where('recorded.by', '==', 'hugo'), // TODO: use authentication
+	const { id } = useAuth()
+	const notes = useCollection('notes',
+		where('recorded.by', '==', id),
 		orderBy('recorded.on', 'desc'),
-		limit(2) // TODO: infinite scrolling
-	])
+		// limit(4)
+	)
 
 	return (
 		<div className='notes'>
@@ -18,7 +19,7 @@ export default function Notes() {
 function Note({ content, context, feelings }) {
 	return (
 		<div className='note'>
-			<h3><q>{ content }</q></h3>
+			<h3><q>{ content }</q><span className='author'>Hugo</span></h3>
 			{ context && <p className='context'>{ context }</p> }
 			{ feelings && <p className='feelings'>{ feelings }</p> }
 			<br />

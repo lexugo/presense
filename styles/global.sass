@@ -6,7 +6,7 @@ body, html, *
 	padding: 0
 
 *
-	transition: opacity .2s ease-in-out
+	transition: opacity 1s ease-in-out
 
 #__next
 	overflow-y: none
@@ -222,18 +222,32 @@ button, .option button, .option a
 // Thank you
 .thank.you
 	.note
+		height: 1.2em
 		margin-bottom: .6em
 		color: $faded-text
 
-		.author
-			opacity: .6
-			display: none
-			font-style: italic
+.author
+	opacity: .6
+	display: none
+	font-style: italic
+	font-weight: 400
 
-			+tablet
-				display: inline
+	+tablet
+		display: inline
 
-			&:before
-				content: ' - '
-				font-weight: 400
-				font-style: normal
+	&:before
+		content: ' - '
+		font-weight: 400
+		font-style: normal
+
+.suspended.note
+	opacity: 0
+
+.notes
+	margin-left: 3rem
+
+	.note
+		font-weight: 400
+
+		.context, .feelings
+			color: $faded-text

@@ -1,24 +1,15 @@
-import { recall } from 'services/notes'
-
+import Note from 'components/note'
 import Choice, { Between } from 'components/select'
 import Option from "components/option"
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
+import useAuth from 'hooks/useAuth'
 
-export default function Note() {
-	const { id } = useRouter().query
-	const [note, setNote] = useState()
+export default function Noticed({ note }) {
+	useAuth()
 
-	useEffect(() => { if (id) recall(id).then(setNote) }, [id])
-
-	if (!note) return <div className='thank you'>loading</div>
 	return (
 		<div className='thank you'>
 			<header>
-				<p className='note'>
-					<q>{ note.content }</q>
-					<span className='author'>Hugo</span>
-				</p>
+				<Note id={note} />
 			</header>
 			<form className='questions'>
 				<Choice>
@@ -32,3 +23,5 @@ export default function Note() {
 		</div>
 	)
 }
+
+Noticed.getInitialProps = ({ query: { id } }) => ({ note: id })

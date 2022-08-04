@@ -1,40 +1,24 @@
+import { getApp, getApps } from 'firebase/app'
 import { getAuth, signInAnonymously, getRedirectResult, signInWithPopup, signInWithRedirect, GoogleAuthProvider, FacebookAuthProvider, signOut, linkWithRedirect } from 'firebase/auth'
+import { useState, useEffect } from 'react'
 
-
-const google = new GoogleAuthProvider();
 
 export default function useAuth() {
-	const auth = getAuth()
+	const [user, setUser] = useState(getUser)
 
-	getRedirectResult(auth)
-		.then((result) => {
-			const credential = GoogleAuthProvider.credentialFromResult(result);
-			if (credential) {
-			// Accounts successfully linked.
-			const user = result.user;
-			console.log('Successfully linked user account: ', user);
-			// ...
-			}
-		}).catch((error) => {
-			// Handle Errors here.
-			// ...
-			console.log('Error linking user account: ', error);
-		});
+	useEffect(() => {
+		const auth = getAuth()
 
-	console.log(auth)
+		if (!auth.currentUser)
+			signInAnonymously(auth)
+
+		return auth.onAuthStateChanged(setUser)
+	}, [])
+
 	return {
-		authenticated: !!auth.currentUser,
-		id: auth.currentUser?.uid,
-		name: auth.currentUser?.displayName,
-
-		signInAnonymously: async (event) => {
-			event.preventDefault()
-
-			console.log('anon')
-			await signInAnonymously(auth)
-		},
-		signInWithGoogle: () => signInWith(google)(auth),
-		signOut: () => signOut(auth),
+		authenticated: !!user,
+		id: user?.uid,
+		name: user?.displayName ?? 'anonymous'
 	}
 }
 
@@ -44,4 +28,9 @@ function signInWith(provider) {
 			? linkWithRedirect(auth.currentUser, provider)
 			: signInWithRedirect(auth, provider)
 	}
+}
+
+function getUser() {
+	if (getApps().length)
+		return getAuth().currentUser
 }

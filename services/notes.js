@@ -1,12 +1,10 @@
 import { addDoc, collection, doc, getDoc, getDocs, getFirestore, Timestamp } from 'firebase/firestore'
 import { getAuth, signInAnonymously } from 'firebase/auth'
+import { getApp } from 'firebase/app'
+
 
 export async function recall(id) {
 	const firestore = getFirestore()
-
-	const auth = getAuth()
-	if (!auth.currentUser)
-		await signInAnonymously(auth)
 
 	if (!id) { // Recall all notes
 		const notes = collection(firestore, 'notes')
@@ -29,7 +27,7 @@ export async function record(note) {
 	const firestore = getFirestore()
 	const notes = collection(firestore, 'notes')
 
-	const auth = getAuth()
+	const auth = getAuth(getApp())
 	if (!auth.currentUser)
 		await signInAnonymously(auth)
 

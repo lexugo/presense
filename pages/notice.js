@@ -6,8 +6,10 @@ import { useSuspended, useRouting, Suspense } from 'neon'
 
 import Question from 'components/question'
 import { suspenseful } from 'neon'
+import useAuth from 'hooks/useAuth'
 
 function Notice(_, suspended) {
+	useAuth()
 	const { focus, questions, about } = useAudition()
 	const { redirect } = useRouting()
 
