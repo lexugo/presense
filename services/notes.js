@@ -5,7 +5,6 @@ export async function recall(id) {
 	const firestore = getFirestore()
 
 	const auth = getAuth()
-	console.log(auth)
 	if (!auth.currentUser)
 		await signInAnonymously(auth)
 
@@ -31,7 +30,6 @@ export async function record(note) {
 	const notes = collection(firestore, 'notes')
 
 	const auth = getAuth()
-	console.log(auth)
 	if (!auth.currentUser)
 		await signInAnonymously(auth)
 
@@ -40,7 +38,6 @@ export async function record(note) {
 		recorded: {
 			on: Timestamp.now(),
 			by: auth.currentUser.uid
-			// TODO: authentication
 		}
 	})
 
