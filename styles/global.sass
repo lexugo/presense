@@ -8,9 +8,6 @@ body, html, *
 *
 	transition: opacity 1s ease-in-out
 
-#__next
-	overflow-y: none
-
 button
 	font: inherit
 	color: inherit
@@ -87,7 +84,7 @@ a
 		color: #fd7861
 
 	.info
-		font-size: .8em
+		// font-size: .8em
 		color: $faded-text
 
 	.actions
@@ -227,7 +224,7 @@ button, .option button, .option a
 // Thank you
 .thank.you
 	.note
-		height: 1.2em
+		min-height: 1.2em
 		margin-bottom: .6em
 		color: $faded-text
 
@@ -256,3 +253,10 @@ button, .option button, .option a
 
 		.context, .feelings
 			color: $faded-text
+
+.sign.in,
+.signing.in
+	h1
+		color: $faded-text
+		font-size: 1em
+		font-weight: 500

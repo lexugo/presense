@@ -36,3 +36,7 @@ yarn-error.log*
 /public/sw.js
 /public/sw.js.map
 /public/workbox-*
+
+# intellij
+# User-specific stuff
+/.idea

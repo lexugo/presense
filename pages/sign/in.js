@@ -1,22 +1,20 @@
 import useAuth from 'hooks/useAuth'
 
-import Note from 'components/note'
 import Choice, { Between } from 'components/select'
 import Option from "components/option"
 
-export default function Noticed({ note }) {
+export  default function SignIn() {
 	useAuth()
 
 	return (
-		<div className='thank you'>
-			<header>
-				<Note id={note} />
-			</header>
+		<div className='welcome'>
 			<form className='questions'>
 				<Choice>
-					Thank you! Should we record another note?
+					Welcome 👋
+					<p className='info'>Your notes will be saved and shared across devices</p>
 					<Between>
-						<Option href='/notice'>Yes, take another note.</Option>
+						<Option href='/notice'>Take notes.</Option>
+						<Option href='/sign/out'>Sign out.</Option>
 						<Option href='/notes'>Or, read the previous notes.</Option>
 					</Between>
 				</Choice>
@@ -24,5 +22,3 @@ export default function Noticed({ note }) {
 		</div>
 	)
 }
-
-Noticed.getInitialProps = ({ query: { id } }) => ({ note: id })

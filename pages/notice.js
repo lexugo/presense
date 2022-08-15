@@ -2,11 +2,11 @@ import { record } from 'services/notes'
 
 import { useEffect, useState } from 'react'
 import useAudition from 'hooks/useAudition'
-import { useSuspended, useRouting, Suspense } from 'neon'
+import { useSuspended, useRouting } from 'neon'
+import useAuth from 'hooks/useAuth'
 
 import Question from 'components/question'
 import { suspenseful } from 'neon'
-import useAuth from 'hooks/useAuth'
 
 function Notice(_, suspended) {
 	useAuth()
@@ -34,7 +34,7 @@ function Notice(_, suspended) {
 			<Question
 				{...about('note')}
 				answer={content}
-				onChange={setContent}
+				onAnswer={setContent}
 				placeholder='I was lost in a daydream'
 				required
 				disabled={suspended}
@@ -44,7 +44,7 @@ function Notice(_, suspended) {
 			<Question
 				{...about('context')}
 				answer={context}
-				onChange={setContext}
+				onAnswer={setContext}
 				placeholder="Yet, I don't remember where I was beforehand"
 				disabled={suspended}
 			>
@@ -53,7 +53,7 @@ function Notice(_, suspended) {
 			<Question
 				{...about('feelings')}
 				answer={feelings}
-				onChange={setFeelings}
+				onAnswer={setFeelings}
 				placeholder="Astray, until I regained presense"
 				disabled={suspended}
 			>

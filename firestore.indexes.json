@@ -1,0 +1,35 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "notes",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "recorded.by",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "recorded.on",
+          "order": "DESCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": [
+    {
+      "collectionGroup": "notes",
+      "fieldPath": "content",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "notes",
+      "fieldPath": "context",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "notes",
+      "fieldPath": "feelings",
+      "indexes": []
+    }
+  ]
+}

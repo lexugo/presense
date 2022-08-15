@@ -3,7 +3,8 @@ import { forwardRef } from 'react'
 
 import Press from 'components/keypress'
 
-function Question({ name, answer, onChange, onSkip, onSubmit, required, className, children: label, ...props}, ref) {
+function Question({ name, answer, onAnswer, onSkip, onSubmit, required, className, children: label, when,...props}, ref) {
+	const classNames = useClasses(className, required && 'required', 'question')
 
 	const skippable = !required
 	const submittable = required || answer
@@ -13,11 +14,11 @@ function Question({ name, answer, onChange, onSkip, onSubmit, required, classNam
 	}
 
 	function skip(event) {
-		onChange(undefined) // Clear answer when skipping
+		onAnswer(undefined) // Clear answer when skipping
 		onSkip(event)
 	}
 
-	const classNames = useClasses(className, required && 'required', 'question')
+	if (when === false) return null
 	return (
 		<div className={classNames}>
 			<label htmlFor={name}>{ label }</label>
@@ -26,7 +27,7 @@ function Question({ name, answer, onChange, onSkip, onSubmit, required, classNam
 				ref={ref}
 				value={answer ?? ''}
 				onKeyDown={keyDown}
-				onChange={({ target: { value }}) => onChange(value)}
+				onChange={({ target: { value }}) => onAnswer(value)}
 				onSubmit={onSubmit}
 				autoComplete='off'
 				{...props}
