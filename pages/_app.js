@@ -1,14 +1,13 @@
-import { useFirebase } from 'libs/braise'
-import useAuth from 'hooks/useAuth'
+import { signInWithGoogle, useFirebase } from 'libs/braise'
 
 import Brand from 'components/brand'
-import { Safe } from 'neon'
+import { Safe, useSideEffect } from 'neon'
 
 import 'styles/global.sass'
 
 export default function Layout({ Component, pageProps: props }) {
 	useFirebase()
-	useAuth()
+	useSideEffect(signInWithGoogle, []) // Enforce login
 
 	return (
 		<Safe>
