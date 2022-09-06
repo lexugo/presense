@@ -3,13 +3,11 @@ import { record } from 'services/notes'
 import { useEffect, useState } from 'react'
 import useAudition from 'hooks/useAudition'
 import { useSuspended, useRouting } from 'neon'
-import useAuth from 'hooks/useAuth'
 
 import Question from 'components/question'
 import { suspenseful } from 'neon'
 
 function Notice(_, suspended) {
-	useAuth()
 	const { focus, questions, about } = useAudition()
 	const { redirect } = useRouting()
 

@@ -1,11 +1,7 @@
-import useAuth from 'hooks/useAuth'
-
 import Choice, { Between } from 'components/select'
 import Option from "components/option"
 
-export  default function SignIn() {
-	useAuth()
-
+export default function SignIn() {
 	return (
 		<div className='welcome'>
 			<form className='questions'>

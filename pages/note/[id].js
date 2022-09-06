@@ -1,12 +1,8 @@
-import useAuth from 'hooks/useAuth'
-
 import Note from 'components/note'
 import Choice, { Between } from 'components/select'
 import Option from "components/option"
 
 export default function Noticed({ note }) {
-	useAuth()
-
 	return (
 		<div className='thank you'>
 			<header>
