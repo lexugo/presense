@@ -9,7 +9,7 @@ export default function Brand() {
 	return (
 		<header>
 			<Head><title>Presense</title></Head>
-			<Anchor href='/notice'>
+			<Anchor href='/'>
 				<h1 className={classNames}>Pre<span className='sense'>sense</span></h1>
 			</Anchor>
 		</header>

@@ -9,7 +9,7 @@ function Choice({ name, value, onAnswer, when, children }, ref) {
 	return (
 		<div className='multiple choice question' ref={ref}>
 			<label htmlFor={name}>{ label }</label>
-			<div className='options'>
+			<div className='choices'>
 				{ choices }
 			</div>
 		</div>

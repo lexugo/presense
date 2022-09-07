@@ -14,7 +14,6 @@ function Question({ name, answer, onAnswer, onSkip, onSubmit, required, classNam
 	}
 
 	function skip(event) {
-		onAnswer(undefined) // Clear answer when skipping
 		onSkip(event)
 	}
 
@@ -23,14 +22,14 @@ function Question({ name, answer, onAnswer, onSkip, onSubmit, required, classNam
 		<div className={classNames}>
 			<label htmlFor={name}>{ label }</label>
 			<input type='text'
-				name={name}
-				ref={ref}
-				value={answer ?? ''}
-				onKeyDown={keyDown}
-				onChange={({ target: { value }}) => onAnswer(value)}
-				onSubmit={onSubmit}
-				autoComplete='off'
-				{...props}
+				   name={name}
+				   ref={ref}
+				   value={answer ?? ''}
+				   onKeyDown={keyDown}
+				   onChange={({ target: { value }}) => onAnswer && onAnswer(value)}
+				   onSubmit={onSubmit}
+				   autoComplete='off'
+				   {...props}
 			/>
 			<div className='actions'>
 				<Submit disabled={!submittable} onSubmit={onSubmit} />
