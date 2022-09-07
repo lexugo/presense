@@ -39,7 +39,7 @@ a
 		min-height: 84vh
 
 	display: grid
-	grid-template-rows: [header] 1fr [main] auto [footer] 1fr
+	grid-template-rows: [header] 3rem [main] auto [footer] 3rem
 	gap: 3rem
 
 	font-family: 'Karla', sans-serif
@@ -51,13 +51,15 @@ a
 	header
 		align-self: start
 		font-size: 1.4em
-		//margin: 0 3rem
 
-	footer
-		justify-self: center
-		align-self: end
-		color: $faded-text
-		font-size: .8em
+	> form, > nav
+		align-self: center
+		display: contents
+
+		> nav
+			align-self: end
+
+
 
 // General
 .keyword,
@@ -65,15 +67,15 @@ a
 	font-weight: 700
 
 // Forms
-form, nav
-	display: flex
-	flex-direction: column
-	gap: 2rem
-
 .question
-	display: grid
+	align-self: center
 	grid-template-rows: min-content auto min-content
 	gap: 1rem
+
+	display: none
+	&.selected,
+	&:only-child
+		display: grid
 
 	label
 		grid-row: 1
@@ -106,6 +108,8 @@ form, nav
 		&:focus::placeholder
 			color: $faded-text
 
+.question,
+form > nav
 	button, a
 		cursor: pointer
 		padding: .6em 1.2em
@@ -113,13 +117,27 @@ form, nav
 		color: $light
 		font-family: roboto, 'sans-serif'
 		font-weight: 600
-		//background: $orange
+		background: $orange
 		text-decoration: none
 		height: min-content
 
 		transition: opacity .2s ease-in-out
 		&:disabled
 			opacity: .4
+
+form > nav
+	display: flex
+	flex-direction: row
+	gap: 1rem
+
+	.previous
+		background: $yellow
+
+	.abort
+		background: $red
+
+	.continue
+		background: $pink
 
 .multiple.choice.question
 	grid-template-rows: min-content auto
@@ -144,11 +162,6 @@ form, nav
 			&:nth-child(2)
 				background: $orange
 
-//.question:not(:focus-within)
-//	opacity: .6
-
-
-
 .submit,
 .skip,
 .option
@@ -170,17 +183,6 @@ form, nav
 .skip
 	button
 		background: $pink
-
-
-.required.question
-	label:after
-		position: relative
-		left: 4px
-		content: '*'
-		color: #fd7861
-
-
-
 
 // Presense
 .brand

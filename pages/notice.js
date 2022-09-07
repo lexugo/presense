@@ -1,63 +1,64 @@
 import { record } from 'services/notes'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import useAudition from 'hooks/useAudition'
-import { useSuspended, useRouting } from 'neon'
+import { useRouting } from 'neon'
 
+import Form from 'components/form'
 import Question from 'components/question'
 import { suspenseful } from 'neon'
 
 function Notice(_, suspended) {
-	const { focus, questions, about } = useAudition()
 	const { redirect } = useRouting()
 
 	const [content, setContent] = useState()
 	const [context, setContext] = useState()
 	const [feelings, setFeelings] = useState()
+	const { audition, about } = useAudition({
+		onAbort: '/',
+		onSubmit: async event => {
+			event.preventDefault()
 
-	async function submit(event) {
-		event.preventDefault()
+			const reference = await record({
+				content: content || "J'étais perdu·e dans un rêve",
+				context,
+				feelings
+			})
+			await redirect(`/note/${reference}`)
+		}
+	})
 
-		const reference = await record({
-			content: content || 'I was lost in a daydream',
-			context,
-			feelings
-		})
-		await redirect(`/note/${reference}`)
-	}
-
-	useEffect(() => focus('note'), [questions, suspended]) // Autofocus the first question
 	return (
-		<form className='questions' onSubmit={useSuspended(submit)}>
+		<Form {...audition}>
 			<Question
 				{...about('note')}
 				answer={content}
 				onAnswer={setContent}
-				placeholder='I was lost in a daydream'
+				placeholder="J'étais perdu·e dans un rêve..."
 				required
 				disabled={suspended}
 			>
-				Hello, what did you <span className='keyword'>notice</span> today?
+				Qu'avez-vous <span className='keyword'>remarqué</span> aujourd'hui?
 			</Question>
 			<Question
 				{...about('context')}
 				answer={context}
 				onAnswer={setContext}
-				placeholder="Yet, I don't remember where I was beforehand"
+				placeholder="Hors, je ne me souviens plus d'où j'étais..."
 				disabled={suspended}
 			>
-				What was happening in, or around, you at the time?
+				Que se passait-il <span className='keyword'>en</span> ou <span className='keyword'>autour</span> de vous à ce moment?
 			</Question>
 			<Question
 				{...about('feelings')}
 				answer={feelings}
 				onAnswer={setFeelings}
-				placeholder="Astray, until I regained presense"
+				placeholder="Égaré·e, jusqu'à ce que je retrouve la présence..."
 				disabled={suspended}
 			>
-				How were you <span className='keyword'>feeling</span>?
+				Comment vous <span className='keyword'>sentiez</span>-vous?
 			</Question>
-		</form>
+		</Form>
 	)
 }
 

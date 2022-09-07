@@ -1,60 +1,47 @@
-import { useState } from 'react'
-import { useDevice } from 'neon'
+import { useCallback, useEffect, useState } from 'react'
+import useFrom from './useFrom'
 
-export default function useAudition() {
+export default function useAudition({ onAbort, onSubmit }) {
 	const [questions, setQuestions] = useState({})
+	const { value: focused, next, previous } = useFrom(questions)
 
-	const mobile = useDevice('mobile')
+	const onPrevious = useCallback(handled(previous), [previous])
+	const onContinue = useCallback(handled(next), [next])
 
 	function about(question) {
-		const index = Object.keys(questions).indexOf(question)
-
-		function next(event) {
-			const next = Object.values(questions)[index + 1]
-
-			if (!next)
-				return submit(event) // Submit form when skipping the last question
-
-			event.preventDefault()
-			focus(next)
-		}
-
-		function submit(event) {
-			const form = questions[question].form
-
-			event.preventDefault()
-			form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }))
-		}
-
 		return {
-			key: question,
 			name: question,
+			className: questions[question] === focused && 'selected',
 			ref: component => setQuestions(questions => !questions[question] ? { ...questions, [question]: component } : questions),
 
-			onSkip: next,
-			onSubmit: next,
-			tabIndex: index + 1,
+			onSkip: onContinue || onSubmit,
+			onSubmit: onContinue || onSubmit,
 		}
 	}
 
-	function focus(question) {
-		const element = typeof question === 'string' || question instanceof String
-			? questions[question]
-			: question
-
-		if (mobile) {
-			element?.focus({ preventScroll: true })
-			element?.parentElement?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-		}
-		else {
-			element?.focus({ preventScroll: true })
-			element?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-		}
-	}
-
+	useEffect(() => focus(focused), [focused]) // Autofocus the selected input
 	return {
+		audition: {
+			onSubmit,
+			onAbort,
+			onPrevious,
+			onContinue
+		},
 		questions,
 		about,
-		focus
 	}
 }
+
+function focus(question) {
+	question?.focus({ preventScroll: true })
+	question?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+}
+
+function handled(handler) {
+	if (!handler) return
+	return function (event) {
+		event.preventDefault()
+		handler(event)
+	}
+}
+
