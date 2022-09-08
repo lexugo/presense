@@ -49,7 +49,7 @@ a
 	background-color: $dark
 
 	header
-		align-self: start
+		align-self: center
 		font-size: 1.4em
 
 	> form, > nav
@@ -57,7 +57,7 @@ a
 		display: contents
 
 		> nav
-			align-self: end
+			align-self: center
 
 
 
@@ -236,13 +236,16 @@ form > nav
 	opacity: 0
 
 .notes
-	margin-left: 3rem
+	grid-row: 2 / 4
 
 	.note
 		font-weight: 400
 
 		.context, .feelings
 			color: $faded-text
+
+			&:before
+				content: ' · '
 
 .sign.in,
 .signing.in
