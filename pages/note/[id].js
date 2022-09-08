@@ -1,23 +1,19 @@
 import Note from 'components/note'
 import Choice, { Between } from 'components/select'
-import Option from "components/option"
+import { Anchor } from 'neon'
 
 export default function Noticed({ note }) {
 	return (
-		<div className='thank you'>
-			<header>
+		<nav className='thank you'>
+			<Choice>
+				Merci! Voulez-vous prendre une nouvelle note?
 				<Note id={note} />
-			</header>
-			<form className='questions'>
-				<Choice>
-					Thank you! Should we record another note?
-					<Between>
-						<Option href='/notice'>Yes, take another note.</Option>
-						<Option href='/notes'>Or, read the previous notes.</Option>
-					</Between>
-				</Choice>
-			</form>
-		</div>
+				<Between>
+					<Anchor href='/notice'>Oui! Inscrire une note</Anchor>
+					<Anchor href='/notes'>Ou lires les anciennes notes</Anchor>
+				</Between>
+			</Choice>
+		</nav>
 	)
 }
 

@@ -81,7 +81,7 @@ a
 		grid-row: 1
 		font-size: 1.4em
 
-	.info
+	.info, .note
 		color: $faded-text
 
 	input
@@ -156,12 +156,6 @@ form > nav
 		a, button
 			width: max-content
 
-			&:nth-child(1)
-				background: $yellow
-
-			&:nth-child(2)
-				background: $orange
-
 .submit,
 .skip,
 .option
@@ -201,6 +195,14 @@ form > nav
 	display: inline-block
 	animation: ellipsis steps(1,end) 1.4s infinite
 
+// Welcome
+.welcome
+	.choices
+		a:nth-child(1)
+			background: $yellow
+
+		a:nth-child(2)
+			background: $orange
 
 
 // Thank you
@@ -209,6 +211,12 @@ form > nav
 		min-height: 1.2em
 		margin-bottom: .6em
 		color: $faded-text
+
+	.choices
+		a:nth-child(1)
+			background: $pink
+		a:nth-child(2)
+			background: $blue
 
 .author
 	opacity: .6
