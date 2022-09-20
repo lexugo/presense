@@ -13,6 +13,20 @@
           "order": "DESCENDING"
         }
       ]
+    },
+    {
+      "collectionGroup": "intentions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "set.by",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "set.on",
+          "order": "DESCENDING"
+        }
+      ]
     }
   ],
   "fieldOverrides": [
@@ -29,6 +43,16 @@
     {
       "collectionGroup": "notes",
       "fieldPath": "feelings",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "intentions",
+      "fieldPath": "intent",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "intentions",
+      "fieldPath": "goal",
       "indexes": []
     }
   ]

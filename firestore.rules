@@ -8,22 +8,20 @@ service cloud.firestore {
     }
 
     match /notes/{note} {
-    	function public() {
-      	return !('recorded' in resource.data) || !('by' in resource.data.recorded)
-            || ('shared' in resource.data && 'everyone' in resource.data.shared.with)
-      }
-
-      function shared() {
-      	return 'shared' in resource.data
-            && 'with' in resource.data.shared
-        		&& request.auth.uid in resource.data.shared.with
-      }
-
-    	function owner() {
+      function owner() {
       	return resource.data.recorded.by == request.auth.uid;
       }
 
-    	allow read: if public() || (signedIn() && (owner() || shared()));
+      allow read: if signedIn() && owner();
+      allow create: if signedIn();
+    }
+
+    match /intentions/{intent} {
+      function owner() {
+        return resource.data.set.by == request.auth.uid;
+      }
+
+      allow read: if signedIn() && owner();
       allow create: if signedIn();
     }
   }

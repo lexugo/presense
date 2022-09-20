@@ -1,12 +1,14 @@
+import { set } from 'services/intent'
+
 import { useState } from 'react'
-import { useRouter } from 'next/router'
+import { useRouting } from 'neon'
 import useAudition from 'hooks/useAudition'
 
 import Form from 'components/form'
 import Question from 'components/question'
 
 export default function Intent() {
-	const { back } = useRouter()
+	const { redirect, back } = useRouting()
 
 	const [intent, setIntent] = useState()
 	const [goal, setGoal] = useState()
@@ -14,6 +16,9 @@ export default function Intent() {
 		onAbort: back,
 		onSubmit: async event => {
 			event.preventDefault()
+
+			const reference = await set({ goal, intent: intent || 'Je vais inspirer profondément...' })
+			await redirect(`/intent/${reference}`)
 		}
 	})
 
