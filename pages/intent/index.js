@@ -20,14 +20,14 @@ export default function Intent() {
 				required
 				answer={intent}
 				onAnswer={setIntent}
-				placeholder='Je vais...'
+				placeholder='Je vais inspirer profondément...'
 			>
 				Maintenant, quelle est votre <span className='keyword'>intention</span> précise?
 			</Question>
 			<Question {...about('goal')}
-					  answer={goal}
-					  onAnswer={setGoal}
-					  placeholder='Avec comme objectif...'
+				answer={goal}
+				onAnswer={setGoal}
+				placeholder="Avec l'instant présent comme objectif..."
 			>
 				Quel <span className='keyword'>but</span> souhaitez-vous atteindre
 				avec cet <span className='keyword'>engagement</span>?
