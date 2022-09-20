@@ -1,14 +1,17 @@
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 import useAudition from 'hooks/useAudition'
 
 import Form from 'components/form'
 import Question from 'components/question'
 
 export default function Intent() {
+	const { back } = useRouter()
+
 	const [intent, setIntent] = useState()
 	const [goal, setGoal] = useState()
 	const { audition, about } = useAudition({
-		onAbort: '/',
+		onAbort: back,
 		onSubmit: async event => {
 			event.preventDefault()
 		}

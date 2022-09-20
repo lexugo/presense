@@ -9,13 +9,13 @@ import Question from 'components/question'
 import { suspenseful } from 'neon'
 
 function Notice(_, suspended) {
-	const { redirect } = useRouting()
+	const { redirect, back } = useRouting()
 
 	const [content, setContent] = useState()
 	const [context, setContext] = useState()
 	const [feelings, setFeelings] = useState()
 	const { audition, about } = useAudition({
-		onAbort: '/',
+		onAbort: back,
 		onSubmit: async event => {
 			event.preventDefault()
 
