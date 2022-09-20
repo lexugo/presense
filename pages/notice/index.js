@@ -24,24 +24,21 @@ function Notice(_, suspended) {
 				context,
 				feelings
 			})
-			await redirect(`/note/${reference}`)
+			await redirect(`/notice/${reference}`)
 		}
 	})
 
 	return (
 		<Form {...audition}>
-			<Question
-				{...about('note')}
+			<Question {...about('note')}
 				answer={content}
 				onAnswer={setContent}
 				placeholder="J'étais perdu·e dans un rêve..."
-				required
 				disabled={suspended}
 			>
 				Qu'avez-vous <span className='keyword'>remarqué</span> aujourd'hui?
 			</Question>
-			<Question
-				{...about('context')}
+			<Question {...about('context')}
 				answer={context}
 				onAnswer={setContext}
 				placeholder="Hors, je ne me souviens plus d'où j'étais..."
@@ -49,8 +46,7 @@ function Notice(_, suspended) {
 			>
 				Que se passait-il <span className='keyword'>en</span> ou <span className='keyword'>autour</span> de vous à ce moment?
 			</Question>
-			<Question
-				{...about('feelings')}
+			<Question {...about('feelings')}
 				answer={feelings}
 				onAnswer={setFeelings}
 				placeholder="Égaré·e, jusqu'à ce que je retrouve la présence..."

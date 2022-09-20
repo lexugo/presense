@@ -10,7 +10,8 @@ export default function Noticed({ note }) {
 				<Note id={note} />
 				<Between>
 					<Anchor href='/notice'>Oui! Inscrire une note</Anchor>
-					<Anchor href='/notes'>Ou lires les anciennes notes</Anchor>
+					<Anchor href='/notes'>Lires les anciennes notes</Anchor>
+					<Anchor href='/intent'>Ou, prendre une intention</Anchor>
 				</Between>
 			</Choice>
 		</nav>
