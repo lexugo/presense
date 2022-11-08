@@ -1,24 +1,21 @@
-import Note from 'components/note'
 import Choice, { Between } from 'components/select'
 import { unindexed, Anchor } from 'neon'
 
-function Noticed({ note }) {
+function Intended({ intent }) {
 	return (
 		<nav className='thank you'>
 			<Choice>
-				Merci!
-				Voulez-vous prendre une nouvelle note?
-				<Note id={note} />
+				Bonne chance! Voulez-vous prendre une note?
 				<Between>
 					<Anchor href='/notice'>Oui! Inscrire une note</Anchor>
 					<Anchor href='/notes'>Lires les anciennes notes</Anchor>
-					<Anchor href='/intent'>Ou, prendre une intention</Anchor>
+					<Anchor href='/intent'>Ou, prendre une autre intention</Anchor>
 				</Between>
 			</Choice>
 		</nav>
 	)
 }
 
-Noticed.getInitialProps = ({ query: { id } }) => ({ note: id })
+Intended.getInitialProps = ({ query: { id } }) => ({ note: id })
 
-export default unindexed(Noticed)
+export default unindexed(Intended)

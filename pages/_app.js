@@ -11,7 +11,7 @@ export default function Layout({ Component, pageProps: props }) {
 
 	return (
 		<Safe>
-			<Brand />
+			{/*<Brand />*/}
 			<Component {...props} />
 		</Safe>
 	)

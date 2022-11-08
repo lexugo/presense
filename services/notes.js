@@ -1,5 +1,5 @@
 import { addDoc, collection, doc, getDoc, getDocs, getFirestore, Timestamp } from 'firebase/firestore'
-import { getAuth, signInAnonymously } from 'firebase/auth'
+import { getAuth } from 'firebase/auth'
 import { getApp } from 'firebase/app'
 
 
@@ -28,8 +28,6 @@ export async function record(note) {
 	const notes = collection(firestore, 'notes')
 
 	const auth = getAuth(getApp())
-	if (!auth.currentUser)
-		await signInAnonymously(auth)
 
 	const reference = await addDoc(notes, {
 		...serialized(note),

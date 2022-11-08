@@ -28,7 +28,7 @@ export default function useAudition({ onAbort, onSubmit }) {
 			onContinue
 		},
 		questions,
-		about,
+		about
 	}
 }
 
@@ -44,4 +44,3 @@ function handled(handler) {
 		handler(event)
 	}
 }
-
